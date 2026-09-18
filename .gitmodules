@@ -1,6 +1,6 @@
-[submodule "ANIMATe"]
-	path = ANIMATe
+[submodule "animate-ui-materials"]
+	path = source/animate-ui-materials
 	url = https://github.com/hamzsavai-crypto/ANIMATe.git
-[submodule "VPL"]
-	path = VPL
+[submodule "physics-sims"]
+	path = source/physics-sims
 	url = https://github.com/hamzsavai-crypto/VPL.git

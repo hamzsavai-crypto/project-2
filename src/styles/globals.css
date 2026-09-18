@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Instrument-panel palette: dark bench, cool accent, warm measurement ink. */
+  --lab-void: 7 11 18;
+  --lab-panel: 15 21 32;
+  --lab-raise: 22 30 44;
+  --lab-line: 64 78 100;
+  --lab-ink: 226 236 248;
+  --lab-mute: 142 160 184;
+  --lab-accent: 34 211 238;
+  --lab-measure: 251 191 36;
+  --lab-expect: 129 140 248;
+  --lab-pass: 52 211 153;
+  --lab-fail: 251 113 133;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-lab-void font-sans text-lab-ink antialiased;
+    background-image:
+      radial-gradient(900px 480px at 12% -8%, rgb(var(--lab-accent) / 0.09), transparent 60%),
+      linear-gradient(rgb(var(--lab-line) / 0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--lab-line) / 0.16) 1px, transparent 1px);
+    background-size: 100% 100%, 44px 44px, 44px 44px;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-lab-accent/70 ring-offset-2 ring-offset-lab-void;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-lab-line/25 bg-lab-panel/70 shadow-panel backdrop-blur-sm;
+  }
+
+  .readout {
+    @apply font-mono text-[13px] tabular-nums text-lab-measure;
+  }
+
+  .rule-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-lab-mute;
+  }
+
+  /* Numeric entry cells: right-aligned, monospaced, no spinners. */
+  .cell-input {
+    @apply w-full rounded-md border border-transparent bg-transparent px-2 py-1 text-right font-mono text-[13px] tabular-nums text-lab-ink transition;
+  }
+
+  .cell-input:hover {
+    @apply border-lab-line/40 bg-lab-void/60;
+  }
+
+  .cell-input:focus {
+    @apply border-lab-accent/60 bg-lab-void;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='range'] {
+    @apply h-1.5 w-full cursor-pointer appearance-none rounded-full bg-lab-line/40;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    @apply size-4 appearance-none rounded-full border-2 border-lab-void bg-lab-accent;
+  }
+
+  input[type='range']::-moz-range-thumb {
+    @apply size-4 rounded-full border-2 border-lab-void bg-lab-accent;
+  }
+}
