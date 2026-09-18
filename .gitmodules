@@ -1,0 +1,6 @@
+[submodule "ANIMATe"]
+	path = ANIMATe
+	url = https://github.com/hamzsavai-crypto/ANIMATe.git
+[submodule "VPL"]
+	path = VPL
+	url = https://github.com/hamzsavai-crypto/VPL.git
