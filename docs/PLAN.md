@@ -120,7 +120,7 @@ Two MVP candidates were deliberately **not** built: series/parallel resistance (
 circuit rig and wants the real solver, so it belongs in Phase 6) and Young's modulus (needs its own
 apparatus and a stress-strain workflow). Both are listed in the app's backlog with the reason.
 
-## Open decisions still open
+## Decisions still open
 
 1. **Product shape** — the plan recommended "laboratory-first with concepts and simulations
    first-class" and that is what the routes assume. If a course/quizzes direction is chosen later,
@@ -130,3 +130,8 @@ apparatus and a stress-strain workflow). Both are listed in the app's backlog wi
    ships to Pages under a subpath, `base` and the router `basename` must both change.
 3. **Where VPL lives** — this repository is currently named `project-2`. The product is VPL, so a
    rename is worth doing before links and deployment configs hardcode it.
+4. **Animated backgrounds** — unresolved; every option needs WebGL. See
+   [HANDOFF.md](HANDOFF.md) §7 for the three choices and the recommendation.
+
+Continuity note: [HANDOFF.md](HANDOFF.md) carries the current state, the invariants above and the
+open queue in a form a fresh session can act on without re-deriving them.

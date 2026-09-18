@@ -83,7 +83,7 @@ src/
   physics/      pure physics, no React, unit-tested  ← all arithmetic lives here
   lib/          analysis contract, formatting, stats helpers
 source/         pinned upstream repos (reference only)
-docs/           PLAN.md, ATTRIBUTION.md
+docs/           PLAN.md, ATTRIBUTION.md, HANDOFF.md
 ```
 
 Dependency direction is one-way: `pages → components/lab → features → lib/lab → physics`.
@@ -103,4 +103,5 @@ Navigation, gating, the observation table, the graph, the result box and saving 
 
 Phase 1 (foundation), Phase 2 (Ohm's law) and Phase 3 (pendulum) are implemented, along with local
 attempt history. Accounts, lens/projectile experiments and the standalone simulation library are
-queued — see [docs/PLAN.md](docs/PLAN.md) for the phase table and the decisions still open.
+queued — see [docs/PLAN.md](docs/PLAN.md) for the phase table and the decisions still open, and
+[docs/HANDOFF.md](docs/HANDOFF.md) for the invariants, verified state and resume instructions.
