@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
+import { animate, motion, useMotionValue, useTransform } from 'motion/react';
 
 /**
  * Rolling numeric readout. Used wherever an instrument value changes while the

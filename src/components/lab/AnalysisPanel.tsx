@@ -1,4 +1,5 @@
 import { LabGraph } from '@/components/charts/LabGraph';
+import { BorderGlow } from '@/components/bits';
 import { Stat } from '@/components/ui/Stat';
 import { Badge, Panel, PanelHeader } from '@/components/ui/Panel';
 import type { ExperimentDefinition } from '@/features/experiments/types';
@@ -37,7 +38,16 @@ export function AnalysisPanel({ def, run }: { def: ExperimentDefinition; run: Us
         ) : null}
       </Panel>
 
-      <Panel>
+      <BorderGlow
+        className="vpl-instrument"
+        backgroundColor="#0f1520"
+        borderRadius={12}
+        edgeSensitivity={26}
+        glowIntensity={0.9}
+        coneSpread={30}
+        colors={['#22d3ee', '#818cf8', '#fbbf24']}
+      >
+      <Panel className="border-0 bg-transparent shadow-none">
         <PanelHeader eyebrow="Graph" title={analysis.graph ? `${analysis.graph.yLabel} against ${analysis.graph.xLabel}` : 'Graph'} />
         <div className="px-4 py-4">
           {analysis.graph ? (
@@ -49,6 +59,7 @@ export function AnalysisPanel({ def, run }: { def: ExperimentDefinition; run: Us
           )}
         </div>
       </Panel>
+      </BorderGlow>
 
       {analysis.warnings.length > 0 ? (
         <Panel>

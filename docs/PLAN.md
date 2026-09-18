@@ -26,17 +26,23 @@ Consequences that mattered:
    code was taken from it; it is kept as a pinned reference for animation feel and for any Unity
    deliverable. The plan's "Animate UI strategy" section was written against `imskyleen/animate-ui`
    (React + Tailwind + Motion), which is a different project.
-3. **`imskyleen/animate-ui` was not installed.** It targets Tailwind v4 (`tailwindcss ^4.1.13`,
+3. **`imskyleen/animate-ui` is pinned but not installed; React Bits is vendored instead.** It targets Tailwind v4 (`tailwindcss ^4.1.13`,
    `@tailwindcss/postcss`) while the ecosystem these repos sit in is Tailwind 3.4 with a JS config;
    installing it would have meant a CSS-framework migration before any feature work. Its licence is
    also **MIT + Commons Clause**, not plain MIT — components may be used inside a product but not
    redistributed in original form. The useful patterns (shared-layout tab indicator, press feedback,
-   animated counters, step transitions) were re-implemented by hand in `src/components/ui/` against
-   framer-motion, which was already the shared dependency.
+   animated counters, step transitions) were re-implemented by hand in `src/components/ui/`. React
+   Bits, which shares the same Commons Clause restriction, *is* vendored - ten components, selected
+   for running on `motion` alone.
 4. **PhysicsSims ships no charting at all** — no recharts, chart.js, victory, visx or plotly anywhere
    in its tree. VPL's graphs are a hand-rolled SVG surface over `d3-scale` (`src/components/charts/LabGraph.tsx`),
    which keeps the axes looking like an instrument and adds one small dependency instead of a library.
-5. **Reuse is per-module, not per-repository.** The circuit solver in `src/lib/circuit/solver.ts` is a
+5. **React Bits is a copy-paste registry, not a package.** Installing it is not possible or
+   desirable; the component files are vendored instead. Its own stack (React 19, Tailwind v4, gsap,
+   three/ogl for backgrounds) does not match VPL's, so the selection rule was "runs on `react` +
+   `motion` and nothing else", which kept the dependency count at four and excluded every animated
+   background.
+6. **Reuse is per-module, not per-repository.** The circuit solver in `src/lib/circuit/solver.ts` is a
    genuine modified-nodal-analysis engine and is worth lifting intact for an open circuit sandbox.
    The pendulum maths, by contrast, is embedded in a 1023-line page (`PendulumExplorer.tsx`) — only
    the integrator was worth taking. Assuming either could be reused wholesale would have been wrong.
@@ -87,7 +93,7 @@ usable rows exist, because a gradient from two points is not a result.
 
 ```bash
 npm run typecheck   # tsc --noEmit, strict + noUncheckedIndexedAccess
-npm run test        # 26 tests over the physics layer
+npm run test        # 60 tests: physics, route render, vendored-component + skin coupling
 npm run build       # typecheck then bundle
 ```
 
@@ -103,6 +109,7 @@ Install note: `npm install` currently hits an npm/arborist peer-resolution crash
 | 2 | Ohm's law end-to-end: sim → readings → analysis → graph → result → save | **done** |
 | 3 | Pendulum end-to-end, reusing the engine (stopwatch rig, T²-L gradient → g) | **done** |
 | 3.5 | My Laboratory: history list, reopen onto the bench, delete | **done** |
+| 3.6 | Polish pass with React Bits (10 vendored components, single `motion` engine) | **done** |
 | 4 | Lens / focal length: optical bench, 1/u + 1/v reciprocal treatment | next |
 | 5 | Projectile motion: measured vs predicted, with residuals | queued |
 | 6 | Circuit sandbox by lifting the MNA solver; standalone simulation library | queued |

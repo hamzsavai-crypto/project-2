@@ -1,0 +1,95 @@
+/**
+ * Skin layer for the vendored React Bits components.
+ *
+ * Upstream ships presentational CSS tuned for its own demo pages (1.5rem radii,
+ * #111 surfaces, 2rem padding, cursor:pointer on static text, centred layouts).
+ * Rather than fork those rules into the vendored files - which would make them
+ * un-diffable against upstream - every clashing declaration is neutralised here.
+ * Two-class selectors beat the vendored single-class rules, so no !important.
+ *
+ * Imported after globals.css in main.tsx.
+ */
+
+/* Mouse-following spotlight on catalog and bench cards. */
+.card-spotlight.vpl-card {
+  border-radius: 0.75rem;
+  border-color: rgb(var(--lab-line) / 0.25);
+  background-color: rgb(var(--lab-panel) / 0.55);
+  padding: 0;
+  transition: border-color 0.25s ease;
+}
+
+.card-spotlight.vpl-card:hover {
+  border-color: rgb(var(--lab-accent) / 0.45);
+}
+
+/* Gradient headline: keep it left-aligned and non-interactive. */
+.animated-gradient-text.vpl-flat {
+  margin: 0;
+  display: inline-block;
+  justify-content: flex-start;
+  overflow: visible;
+  border-radius: 0;
+  backdrop-filter: none;
+  cursor: default;
+  font-weight: 600;
+  transition: none;
+}
+
+.shiny-text.vpl-shine {
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* Sweeping border on the primary "record" action. */
+.star-border-container.vpl-sweep {
+  display: block;
+  border-radius: 0.5rem;
+}
+
+.star-border-container.vpl-sweep .inner-content {
+  padding: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  text-align: left;
+  font-size: inherit;
+}
+
+/* Glare sweep used as a card surface. */
+.glare-hover.vpl-surface {
+  display: block;
+  background: transparent;
+  border-color: rgb(var(--lab-line) / 0.25);
+  border-radius: 0.75rem;
+}
+
+/* Edge-lit instrument panel around the graph and readouts. */
+.border-glow-card.vpl-instrument {
+  border-color: rgb(var(--lab-line) / 0.25);
+  box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.9);
+}
+
+.border-glow-card.vpl-instrument > .border-glow-inner {
+  border-radius: 0.75rem;
+}
+
+/* These components animate continuously; a study tool must respect the OS setting. */
+@media (prefers-reduced-motion: reduce) {
+  .star-border-container .border-gradient-bottom,
+  .star-border-container .border-gradient-top,
+  .animated-gradient-text .text-content,
+  .animated-gradient-text .gradient-overlay,
+  .shiny-text,
+  .glare-hover::before,
+  .border-glow-card::before,
+  .border-glow-card::after,
+  .border-glow-card > .edge-light {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .glare-hover::before {
+    opacity: 0;
+  }
+}

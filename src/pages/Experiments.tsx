@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Badge, Panel, PanelHeader } from '@/components/ui/Panel';
+import { SpotlightCard } from '@/components/bits';
 import { EXPERIMENTS, PLANNED_EXPERIMENTS, CATEGORY_LABELS } from '@/features/experiments/registry';
 
 export function Experiments() {
@@ -19,7 +20,8 @@ export function Experiments() {
 
       <div className="mt-7 grid gap-4 md:grid-cols-2">
         {EXPERIMENTS.map((e) => (
-          <Link key={e.slug} to={`/experiments/${e.slug}`} className="panel group flex flex-col p-5 transition hover:border-lab-accent/50">
+          <SpotlightCard key={e.slug} className="vpl-card" spotlightColor="rgba(34, 211, 238, 0.18)">
+          <Link to={`/experiments/${e.slug}`} className="group flex h-full flex-col p-5">
             <div className="flex items-center gap-2">
               <Badge>{CATEGORY_LABELS[e.category]}</Badge>
               <Badge tone="measure">{e.minutes} min</Badge>
@@ -35,6 +37,7 @@ export function Experiments() {
             </dl>
             <span className="mt-4 text-[12px] text-lab-accent">Enter laboratory →</span>
           </Link>
+          </SpotlightCard>
         ))}
       </div>
 

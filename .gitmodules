@@ -1,6 +1,9 @@
-[submodule "animate-ui-materials"]
-	path = source/animate-ui-materials
-	url = https://github.com/hamzsavai-crypto/ANIMATe.git
 [submodule "physics-sims"]
 	path = source/physics-sims
 	url = https://github.com/hamzsavai-crypto/VPL.git
+[submodule "react-bits"]
+	path = source/react-bits
+	url = https://github.com/DavidHDev/react-bits.git
+[submodule "animate-ui"]
+	path = source/animate-ui
+	url = https://github.com/imskyleen/animate-ui.git

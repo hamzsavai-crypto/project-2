@@ -1,8 +1,9 @@
 import { useMemo, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
 import { Badge } from '@/components/ui/Panel';
 import { Button } from '@/components/ui/Button';
+import { StarBorder } from '@/components/bits';
 import { createRng, hashSeed, symmetricNoise } from '@/lib/random';
 import { fmt } from '@/lib/calculations/format';
 import {
@@ -188,9 +189,11 @@ export function OhmsLawSim({ def, params, setParam, recordReading, variable }: L
           sub={`P = ${fmt(powerDissipated(setup), 3)} W · division ${METERS.ammeterStep * 1000} mA`}
           tone={meterHot ? 'fail' : 'measure'}
         />
-        <Button variant="primary" onClick={onRecord} disabled={!!problem} className="h-full">
-          Record reading
-        </Button>
+        <StarBorder as="div" color={problem ? '#3f4e64' : '#22d3ee'} speed="4.5s" thickness={1} className="vpl-sweep h-full">
+          <Button variant="primary" onClick={onRecord} disabled={!!problem} className="h-full w-full">
+            Record reading
+          </Button>
+        </StarBorder>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">

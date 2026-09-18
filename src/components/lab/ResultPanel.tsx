@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Button } from '@/components/ui/Button';
+import { CountUp, DecryptedText, StarBorder } from '@/components/bits';
 import { Badge, Panel, PanelHeader } from '@/components/ui/Panel';
 import { fmt } from '@/lib/calculations/format';
 import type { ExperimentDefinition } from '@/features/experiments/types';
@@ -39,12 +40,22 @@ export function ResultPanel({ def, run }: { def: ExperimentDefinition; run: UseE
             }
           />
           <div className="px-4 py-4">
-            <p className="text-[17px] leading-snug text-lab-ink">{result.headline}</p>
+            {/* DecryptedText renders the plain string to assistive tech and starts
+                already-decrypted for "view", so this is garnish, never a gate. */}
+            <p className="text-[17px] leading-snug text-lab-ink">
+              <DecryptedText text={result.headline} animateOn="view" speed={26} maxIterations={7} parentClassName="text-lab-ink" className="text-lab-ink" encryptedClassName="text-lab-accent/80" />
+            </p>
 
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <Value label={result.measured.label} value={fmt(result.measured.value, result.measured.precision)} unit={result.measured.unit} tone="text-lab-measure" />
               <Value label={result.expected.label} value={fmt(result.expected.value, result.expected.precision)} unit={result.expected.unit} tone="text-lab-expect" />
-              <Value label="Percentage error" value={fmt(result.percentError, 2)} unit="%" tone={result.percentError !== null && result.percentError <= def.tolerancePercent ? 'text-lab-pass' : 'text-lab-fail'} />
+              <div className="rounded-lg border border-lab-line/25 bg-lab-void/40 px-3 py-2.5">
+                <p className="text-[11px] text-lab-mute">Percentage error</p>
+                <p className={`mt-1 font-mono text-xl tabular-nums ${result.percentError !== null && result.percentError <= def.tolerancePercent ? 'text-lab-pass' : 'text-lab-fail'}`}>
+                  {result.percentError === null ? '—' : <CountUp to={Number(result.percentError.toFixed(2))} duration={1} />}
+                  <span className="ml-1 text-[11px] text-lab-mute">%</span>
+                </p>
+              </div>
             </div>
 
             {result.notes.length > 0 ? (
@@ -70,9 +81,11 @@ export function ResultPanel({ def, run }: { def: ExperimentDefinition; run: UseE
               placeholder={def.sample ? def.sample.label : 'Untitled attempt'}
               className="h-10 min-w-52 flex-1 rounded-lg border border-lab-line/30 bg-lab-void/60 px-3 text-sm text-lab-ink placeholder:text-lab-mute/60 focus:border-lab-accent/60"
             />
-            <Button variant="primary" onClick={onSave}>
-              {run.lastSaved ? 'Update saved attempt' : 'Save experiment'}
-            </Button>
+            <StarBorder as="div" color="#22d3ee" speed="5s" thickness={1} className="vpl-sweep">
+              <Button variant="primary" onClick={onSave}>
+                {run.lastSaved ? 'Update saved attempt' : 'Save experiment'}
+              </Button>
+            </StarBorder>
             {justSaved ? <Badge tone="pass">saved to this browser</Badge> : null}
           </div>
 

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Badge, Panel, PanelHeader } from '@/components/ui/Panel';
 import type { ExperimentDefinition } from '@/features/experiments/types';
 import type { UseExperimentRun } from '@/features/experiments/useExperimentRun';

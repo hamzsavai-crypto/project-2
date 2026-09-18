@@ -33,10 +33,11 @@ npm run build       # typecheck + production bundle
 Physics logic and interaction patterns are adapted from two upstream repos, pinned as submodules and
 treated as **read-only reference material** — never imported by the build, never merged wholesale.
 
-| Path | Upstream | Pinned at |
-| --- | --- | --- |
-| `source/physics-sims` | [IlliniOpenEdu/PhysicsSims](https://github.com/IlliniOpenEdu/PhysicsSims) (mirrored as `hamzsavai-crypto/VPL`) | `bd7144d` |
-| `source/animate-ui-materials` | [lgarczyn/AnimateUIMaterials](https://github.com/lgarczyn/AnimateUIMaterials) (mirrored as `hamzsavai-crypto/ANIMATe`) | `c7537f7` |
+| Path | Upstream | Pinned at | Contributes |
+| --- | --- | --- | --- |
+| `source/physics-sims` | [IlliniOpenEdu/PhysicsSims](https://github.com/IlliniOpenEdu/PhysicsSims) (mirrored as `hamzsavai-crypto/VPL`) | `bd7144d` | physics + architecture patterns |
+| `source/react-bits` | [DavidHDev/react-bits](https://github.com/DavidHDev/react-bits) | `5fc9add` | animation components (10 vendored) |
+| `source/animate-ui` | [imskyleen/animate-ui](https://github.com/imskyleen/animate-ui) | `efeb96f` | interaction patterns reference |
 
 Clone with them populated:
 
@@ -54,8 +55,16 @@ git add source/physics-sims source/animate-ui-materials
 git commit -m "Bump reference pointers"
 ```
 
-Note `source/animate-ui-materials` is a **Unity C#/ShaderLab** package. It cannot contribute React
-code; it is pinned for reference only. See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
+Animation is consolidated on **`motion`** (the package React Bits targets), not `framer-motion` -
+one engine, not two. Vendored components keep their upstream source byte-for-byte; every
+visual override lives in `src/styles/bits.css`, and hand-written `.d.ts` sidecars type them so
+call sites stay checked without editing the copies.
+
+Both React component distributions are licensed **MIT + Commons Clause**, which permits using
+components inside this product but forbids redistributing them as components. The
+`lgarczyn/AnimateUIMaterials` Unity package formerly pinned here was dropped for that reason - it
+is C#/ShaderLab and cannot supply React components. See
+[docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
 
 ## Layout
 

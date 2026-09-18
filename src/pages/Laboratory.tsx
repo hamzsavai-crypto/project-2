@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Badge, Panel, PanelHeader } from '@/components/ui/Panel';
 import { Button } from '@/components/ui/Button';
 import { deleteAttempt, loadAttempts, type AttemptRecord } from '@/features/experiments/attempts';
